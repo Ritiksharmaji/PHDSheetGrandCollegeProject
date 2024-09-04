@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app id="WebApp_ID" version="2.5"
+  xmlns="http://java.sun.com/xml/ns/j2ee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd">
+<filter>
+    <filter-name>httpHeaderSecurity</filter-name>
+    <filter-class>org.apache.catalina.filters.HttpHeaderSecurityFilter</filter-class>
+    <init-param>
+      <param-name>hstsEnabled</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <init-param>
+      <param-name>hstsMaxAgeSeconds</param-name>
+      <param-value>2592000</param-value>
+    </init-param>
+    <init-param>
+      <param-name>hstsIncludeSubDomains</param-name>
+      <param-value>true</param-value>
+    </init-param>      
+    <init-param>
+      <param-name>antiClickJackingEnabled</param-name>
+      <param-value>true</param-value>
+    </init-param>     
+    <init-param>
+      <param-name>antiClickJackingOption</param-name>
+      <param-value>SAMEORIGIN</param-value>
+    </init-param>  
+    <init-param>
+      <param-name>blockContentTypeSniffingEnabled</param-name>
+      <param-value>true</param-value>
+    </init-param>  
+    <init-param>
+      <param-name>xssProtectionEnabled</param-name>
+      <param-value>true</param-value>
+    </init-param> 
+  </filter>
+ <init-param>
+    <param-name>cors.allowed.origins</param-name>
+    <param-value>/*</param-value>
+  </init-param>
+  <filter-mapping>
+    <filter-name>httpHeaderSecurity</filter-name>  
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter>
+    <filter-name>ExpiresFilter</filter-name>
+    <filter-class>org.apache.catalina.filters.ExpiresFilter</filter-class>
+    <init-param>
+      <param-name>ExpiresDefault</param-name>
+      <param-value>access plus 1 days</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>ExpiresFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+	<display-name>Vignan University :: Vadlamudi</display-name>
+	<servlet>
+		<description>
+		</description>
+		<display-name>FirstServlet</display-name>
+		<servlet-name>FirstServlet</servlet-name>
+		<servlet-class>FirstServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	  <init-param>
+	    <param-name>jdbcDriver</param-name>
+	    <param-value>com.mysql.jdbc.Driver</param-value>
+	    </init-param>
+	  <init-param>
+	    <param-name>dbURL</param-name>
+	    <param-value>jdbc:mysql://localhost:3306</param-value>
+	    </init-param>
+	  <init-param>
+	    <param-name>dbUserName</param-name>
+	    <param-value>att1</param-value>
+	    </init-param>
+	  <init-param>
+	    <param-name>dbPassword</param-name>
+	    <param-value>Atten!@nce</param-value>
+	    </init-param>
+	  </servlet>
+	  <session-config>  
+            <session-timeout>20</session-timeout>  
+      </session-config>  
+	  <welcome-file-list>
+		<welcome-file>login.jsp</welcome-file>
+	</welcome-file-list>
+<!--<filter>
+    <filter-name>ContentSecurityPolicyFilter</filter-name>
+    <filter-class>model.CspFilter</filter-class>
+</filter>
+<filter-mapping>
+    <filter-name>ContentSecurityPolicyFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+<filter>
+    <filter-name>CustomHeaderFilter</filter-name>
+    <filter-class>beans.cacheheader</filter-class>
+</filter>
+ 
+<filter-mapping>
+    <filter-name>CustomHeaderFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping> -->
+  </web-app>
