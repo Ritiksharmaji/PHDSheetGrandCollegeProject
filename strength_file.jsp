@@ -166,23 +166,20 @@
 <!-- Navbar -->
 <nav>
     <ul class="navbar">
-        <li><a href="Annex_1_Form_Investigator.jsp" >Investigators</a></li>
-        <li><a href="Annex_1_Form_proposal.jsp" >Proposal</a></li>
-        <li><a href="Annex_1_Form_workplan.jsp">Work Plan</a></li>
-        <li><a href="Annex_1_Form_Strength.jsp" class="active">Strength</a></li>
-        <li><a href="Annex_1_Form_deliverables.jsp">Deliverables</a></li>
-        <li><a href="Annex_1_Form_Budget.jsp">Budget</a></li>
-        <li><a href="Annex_1_Form_uploads.jsp">Uploads</a></li>
-        <li><a href="Annex_1_Form_preview.jsp">Preview</a></li>
+        <li><a href="#section1">Investigators</a></li>
+        <li><a href="#section2">Proposal</a></li>
+        <li><a href="#section3">Work Plan</a></li>
+        <li><a href="#section4" class="active">Strength</a></li>
+        <li><a href="#section5">Deliverables</a></li>
+        <li><a href="#section6">Budget</a></li>
+        <li><a href="#section7">Uploads</a></li>
+        <li><a href="#section8">Preview</a></li>
     </ul>
 </nav>
 
-    <%
-        List<String> list = new ArrayList<String>();
-    %>
 <!-- Content Section -->
 <section id="section1" class="content-section">
-    <form method="post" action="Annex_1_Form_Strength.jsp">
+    <form method="post" action="strength_file.jsp">
     <table>
         <tr>
             <td colspan="4" class="r1"><b>Top publications of investigator-Supporting the proposal (last five year)</b></td>
@@ -267,13 +264,27 @@
             preparedStatement.setString(16,appli);
 
             int rowAffected = preparedStatement.executeUpdate();
-            if(rowAffected > 0){ 
-            response.sendRedirect("Annex_1_Form_deliverables.jsp");
-  
+            if(rowAffected > 0){
+                %>
+            <h1>Data Stored Successfully.</h1>
+    <%
+            }
+            else{
+                %>
+    <h1>Application Number not found.</h1>
+    <%
+            }
         }
-        }
-               
+
             %>
+<%--            <p><%= dt1%>   <%= sc1%>  <%= imp1%></p><br>--%>
+<%--    <p><%= dt2%>   <%= sc2%>  <%= imp2%></p><br>--%>
+<%--    <p><%= dt3%>   <%= sc3%>  <%= imp3%></p><br>--%>
+<%--    <p><%= dt4%>   <%= sc4%>  <%= imp4%></p><br>--%>
+<%--    <p><%= dt5%>   <%= sc5%>  <%= imp5%></p><br>--%>
+<%--    <%--%>
+<%--        }--%>
+<%--    %>--%>
 
 </section>
 </body>

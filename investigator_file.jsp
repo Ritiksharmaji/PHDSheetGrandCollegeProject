@@ -181,12 +181,7 @@
 
 //    DatabaseConnection con = new DatabaseConnection();
 //    connection = con.getConnection();
-    session.setAttribute("pi","020806");
-    session.setAttribute("tenure",2);
-    session.setAttribute("role",1);
-    session.setAttribute("FS",0);
-    session.setAttribute("status",0);
-    session.setAttribute("appno","FG/2024/3");
+
 
     String empID = (String) session.getAttribute("pi");
     int tenure = (Integer) session.getAttribute("tenure");
@@ -198,14 +193,14 @@
 <!-- Navbar -->
 <nav>
     <ul class="navbar">
-        <li><a href="Annex_1_Form_Investigator.jsp" class="active">Investigators</a></li>
-        <li><a href="Annex_1_Form_proposal.jsp">Proposal</a></li>
-        <li><a href="Annex_1_Form_workplan.jsp">Work Plan</a></li>
-        <li><a href="Annex_1_Form_strength.jsp">Strength</a></li>
-        <li><a href="Annex_1_Form_deliverables.jsp">Deliverables</a></li>
-        <li><a href="Annex_1_Form_budget.jsp">Budget</a></li>
-        <li><a href="Annex_1_Form_uploads.jsp">Uploads</a></li>
-        <li><a href="Annex_1_Form_preview.jsp">Preview</a></li>
+        <li><a href="#section1" class="active">Investigators</a></li>
+        <li><a href="#section2">Proposal</a></li>
+        <li><a href="#section3">Work Plan</a></li>
+        <li><a href="#section4">Strength</a></li>
+        <li><a href="#section5">Deliverables</a></li>
+        <li><a href="#section6">Budget</a></li>
+        <li><a href="#section7">Uploads</a></li>
+        <li><a href="#section8">Preview</a></li>
     </ul>
 </nav>
 
@@ -407,7 +402,7 @@
 
                 int rowAffected =  preparedStatement.executeUpdate();
                 if(rowAffected > 0){
-                    response.sendRedirect("Annex_1_Form_proposal.jsp");
+                    response.sendRedirect("strength_file.jsp");
                 }
 
 
@@ -608,7 +603,7 @@
 
                         int rowAffected =  preparedStatement.executeUpdate();
                         if(rowAffected > 0){
-                            response.sendRedirect("Annex_1_Form_proposal.jsp");
+                            response.sendRedirect("strength_file.jsp");
                         }
 
 
@@ -709,6 +704,9 @@
 
         // Get the table element
         const table = document.querySelector('.content-section table');
+
+
+
 
         // Create a new row
         const newRow = document.createElement('tr');

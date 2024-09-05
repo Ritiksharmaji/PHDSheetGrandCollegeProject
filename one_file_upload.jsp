@@ -28,7 +28,6 @@ if(request.getParameter("sub")!=null)
   <textarea name="mile_stone"></textarea>
   <input type="submit" name="sub">
 </form>
-
 <iframe src="image_upload_file.jsp?ses=1" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
 <br>
 <iframe src="image_upload_file.jsp?ses=4" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>

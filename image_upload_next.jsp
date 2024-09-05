@@ -128,6 +128,55 @@
    {
     quer = " update facultygrants.projectdetails set b_review_img_file='"+newfilename+"' where appno='"+appno+"'";
    }
+   else if(ds==5)
+   {
+    quer = " update facultygrants.projectdetails set b_rational_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+
+   else if(ds==6)
+   {
+    quer = " update facultygrants.projectdetails set d_obj_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+
+   else if(ds==7)
+   {
+    quer = " update facultygrants.projectdetails set d_prelim_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+
+   else if(ds==8)
+   {
+    quer = " update facultygrants.projectdetails set d_inn_comp_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+
+   else if(ds==9)
+   {
+    quer = " update facultygrants.projectdetails set d_method_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+
+    else if(ds==10)
+   {
+    quer = " update facultygrants.projectdetails set del_impact_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+    else if(ds==11)
+   {
+    quer = " update facultygrants.projectdetails set del_Expected_Publications_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+    else if(ds==12)
+   {
+    quer = " update facultygrants.projectdetails set del_mon_effective_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+    else if(ds==13)
+   {
+    quer = " update facultygrants.projectdetails set del_suit_gov_scheme_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+    else if(ds==14)
+   {
+    quer = " update facultygrants.projectdetails set del_post_proj_act_img_file='"+newfilename+"' where appno='"+appno+"'";
+   }
+
+
+
+
 
    // Print the upload status
    if (uploadSuccess) {

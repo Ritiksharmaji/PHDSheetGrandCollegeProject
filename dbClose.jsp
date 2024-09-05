@@ -2,9 +2,10 @@
 <%@ page import="java.sql.Connection, java.sql.SQLException" %>
 
 <%
-catch (Exception e) {
-  e.printStackTrace();
-} 
+//    try{
+//} catch (Exception e) {
+//  e.printStackTrace();
+//}
     // Get the connection from application scope
    // Connection conn = (Connection) application.getAttribute("DBConnection");
 

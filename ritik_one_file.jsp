@@ -1,5 +1,4 @@
 <%@ include file="javabean.jsp"%>
-<%@ include file="Annex_1_Form_Header.jsp" %>
 <%
 
     String appno = "FG/2024/3";
@@ -79,50 +78,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collapsible Section</title>
     <style>
-
-    /* style for nav bar */
-body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        width: 80%;
-    }
-
-    nav {
-        background-color: #fbfcfc;
-        padding: 10px;
-        margin-left: 20%;
-        margin-top: 10%;
-        margin-bottom: 10px;
-    }
-
-    .navbar {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: space-around;
-    }
-
-    .navbar li {
-        display: inline;
-    }
-
-    .navbar li a {
-        text-decoration: none;
-        color: white;
-        padding: 10px 20px;
-        display: inline-block;
-        background-color: #93989d;
-    }
-
-    .navbar li a.active {
-        background-color: #149f19;
-    }
-
-
-
         /* Styles for the page */
         .container {
             max-width: 600px;
