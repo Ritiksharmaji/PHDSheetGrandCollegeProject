@@ -3,8 +3,9 @@
 
 <%
 int budget = 200000;  // get from db;
-String appn = "FG/2024/3"; // change it to session later
-int tenure = 2; // get it from session
+String appn = (String) session.getAttribute("appno");
+int tenure = (Integer) session.getAttribute("tenure");
+//int tenure = 2; // revert back to session later
 int colspan = 4;
 int colspan1 = 1;
 if(tenure == 2) {

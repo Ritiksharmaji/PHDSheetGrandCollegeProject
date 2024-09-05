@@ -183,12 +183,44 @@
 //    connection = con.getConnection();
 
 
-    String empID = (String) session.getAttribute("pi");
-    int tenure = (Integer) session.getAttribute("tenure");
-    int role = (Integer) session.getAttribute("role");
-    int FS = (Integer) session.getAttribute("FS");
-    int subStatus = (Integer) session.getAttribute("status");
-    String appli = (String)session.getAttribute("appno");
+    //String empID = (String) session.getAttribute("pi");
+    String empID = "020806";   // get from session
+    //int tenure = (Integer) session.getAttribute("tenure");
+
+    
+    //int role = (Integer) session.getAttribute("role");
+    int role = 1;
+
+    //int FS = (Integer) session.getAttribute("FS");
+    int FS = 0;
+    //int subStatus = (Integer) session.getAttribute("status");
+    int subStatus = 0;
+
+    String appli = "";
+    // String appli = (String)session.getAttribute("appno");
+    int mid = 1;
+    int year = 0;
+    String apq = "select max(id),year(curdate()) from facultygrants.projectdetails";
+    Statement st12 = conn.createStatement();
+    ResultSet rst12 = st12.executeQuery(apq);
+    if(rst12.next())
+    {
+        mid = rst12.getInt(1)+1;
+        year = rst12.getInt(2);
+    }
+    else
+    {
+        String apyq = "select year(curdate()) from dual";
+        Statement st123 = conn.createStatement();
+        ResultSet rst123 = st123.executeQuery(apyq);
+        rst123.next();
+        year = rst123.getInt(1);
+        st123.close();
+        rst123.close();
+    }
+    
+    appli = "FG/"+year+"/"+mid;
+
 %>
 <!-- Navbar -->
 <nav>
@@ -278,6 +310,10 @@
                 <td><input type="text" name="title" value="<%= resultSet.getString("title")%>"></td>
             </tr>
             <tr>
+                <td class="c1">Budget (in lacs)</td>
+                <td><input type="number" name="budget" value="<%= resultSet.getInt("amount")%>"></td>
+            </tr>
+            <tr>
                 <td class="c1">Duration</td>
                 <td colspan="2">
                     <select name="duration" required>
@@ -302,12 +338,14 @@
                 <td class="c1">Investigator</td>
                 <%
                     try{
-                        preparedStatement = conn.prepareStatement("select name from facultygrants.registration where empcode = ?");
+                        preparedStatement = conn.prepareStatement("select name, role from facultygrants.registration where empcode = ?");
                         preparedStatement.setString(1,empID);
 
                         resultSet1 = preparedStatement.executeQuery();
 
                         if(resultSet1!=null && resultSet1.next()){
+                            int rol = resultSet1.getInt("role");
+                            session.setAttribute("role",rol);
                 %>
                 <td colspan="2"><%= resultSet1.getString("name")%> [<%= empID%>]</td>
                 <%
@@ -372,6 +410,20 @@
                 CoEmp = resultSet.getString("copi");
             }
 
+            String budget = request.getParameter("budget");
+            if(budget == null){
+                budget = resultSet.getString("amount");
+            }
+
+            int budget_int = 0;
+            if(budget != null && !budget.isEmpty()){
+                try{
+                    budget_int = Integer.parseInt(budget);
+                } catch (java.lang.Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+
             int dur = 0; // Default duration value
             if (durationParam != null && !durationParam.isEmpty()) {
                 try {
@@ -392,13 +444,14 @@
                 }
             }
             try {
-                preparedStatement = conn.prepareStatement("update facultygrants.projectdetails set funding = ? , duration = ? , copi = ? , pi=?,title=? where appno = ?");
+                preparedStatement = conn.prepareStatement("update facultygrants.projectdetails set funding = ? , duration = ? , copi = ? , pi=?,title=? , amount = ? where appno = ?");
                 preparedStatement.setInt(1, fund_id);
                 preparedStatement.setInt(2, dur);
                 preparedStatement.setString(3, CoEmp);
                 preparedStatement.setString(4, invest);
                 preparedStatement.setString(5, title);
-                preparedStatement.setString(6, applicationNumber);
+                preparedStatement.setInt(6,budget_int);
+                preparedStatement.setString(7, applicationNumber);
 
                 int rowAffected =  preparedStatement.executeUpdate();
                 if(rowAffected > 0){
@@ -503,6 +556,10 @@
                 <td><input type="text" name="title"></td>
             </tr>
             <tr>
+                <td class="c1">Budget (in lacs)</td>
+                <td><input type="number" name="budget"></td>
+            </tr>
+            <tr>
                 <td class="c1">Duration</td>
                 <td colspan="2">
                     <select name="duration" required>
@@ -563,6 +620,7 @@
                     if (applicationNumber == null) {
                         applicationNumber = "FG/2024/1";
                     }
+                    String budget = request.getParameter("budget");
                     String funding = request.getParameter("scheme");
                     String agency = "VFSTR";
                     String title = request.getParameter("title");
@@ -581,6 +639,17 @@
 //        else {
 //            out.println("<h3 style='color: red;'>Duration is required.</h3>"); // Handle empty duration
 //        }
+
+                    int budget_int = 0;
+                    if(budget != null && !budget.isEmpty()){
+                        try{
+                            budget_int = Integer.parseInt(budget);
+                        } catch (java.lang.Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+
                     int fund_id = 0;
                     if (funding != null && !funding.isEmpty()) {
                         try {
@@ -592,17 +661,23 @@
 
                     try {
 
-                        preparedStatement = conn.prepareStatement("insert into facultygrants.projectdetails (appno , funding , title , duration,pi,amount,copi) values(?,?,?,?,?,0,?)");
+                        preparedStatement = conn.prepareStatement("insert into facultygrants.projectdetails (appno , funding , title , duration,pi,amount,copi) values(?,?,?,?,?,?,?)");
                         preparedStatement.setString(1, applicationNumber);
                         preparedStatement.setInt(2, fund_id);
                         preparedStatement.setString(3, title);
                         preparedStatement.setInt(4, dur);
                         preparedStatement.setString(5, invest);
-                        preparedStatement.setString(6, CoEmp);
+                        preparedStatement.setInt(6,budget_int);
+                        preparedStatement.setString(7, CoEmp);
 
 
                         int rowAffected =  preparedStatement.executeUpdate();
                         if(rowAffected > 0){
+        
+                            session.setAttribute("pi",empID);
+                            session.setAttribute("tenure",dur);
+                            session.setAttribute("appno", appli);
+
                             response.sendRedirect("Annex_1_Form_proposal.jsp");
                         }
 

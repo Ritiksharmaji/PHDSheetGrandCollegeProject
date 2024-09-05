@@ -2,8 +2,7 @@
 <%-- <%@ include file="Annex_1_Form_Header.jsp" %> --%>
 <%
 
-    String appno = "FG/2024/3";
-    session.setAttribute("appno", appno);
+    String appno = (String) session.getAttribute("appno");
 
     String b_description = request.getParameter("b_description");
     String b_review = request.getParameter("b_review");
@@ -78,259 +77,262 @@
 %>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collapsible Section</title>
+    <title>Proposal Form</title>
     <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    /* style for nav bar */
- body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        width: 80%;
-    }
-
-    nav {
-        background-color: #fbfcfc;
-        padding: 10px;
-        margin-left: 20%;
-        margin-top: 10%;
-        margin-bottom: 10px;
-    }
-
-    .navbar {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: space-around;
-    }
-
-    .navbar li {
-        display: inline;
-    }
-
-    .navbar li a {
-        text-decoration: none;
-        color: white;
-        padding: 10px 20px;
-        display: inline-block;
-        background-color: #93989d;
-    }
-
-    .navbar li a.active {
-        background-color: #149f19;
-    }
-
-   
-
-    
-        /* Styles for the page */
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
+        body {
             font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
         }
-        .card-container {
-            background-color: #333;
+
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            background-color: #007bff;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            padding: 15px;
+        }
+
+        .navbar {
+            list-style: none;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .navbar li {
+            flex: 1;
+            text-align: center;
+        }
+
+        .navbar li a {
+            text-decoration: none;
             color: #fff;
-            padding: 10px;
-            margin-bottom: 10px;
+            padding: 10px 15px;
+            font-weight: bold;
+            display: block;
+            transition: background-color 0.3s ease-in-out;
             border-radius: 5px;
-            cursor: pointer;
-            position: relative;
         }
+
+        .navbar li a:hover,
+        .navbar li a.active {
+            background-color: #0056b3;
+        }
+
+        .card-container-background {
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease-in-out;
+        }
+
         .card-container h2 {
             margin: 0;
-            font-size: 18px;
-            display: inline;
-        }
-        .toggle-icon {
-            float: right;
             font-size: 20px;
-            font-weight: bold;
-            line-height: 18px;
         }
+
+        .toggle-icon {
+            font-size: 24px;
+            line-height: 1;
+            transition: transform 0.3s ease-in-out;
+        }
+
         .content {
-            background-color: #444;
-            color: #ddd;
-            padding: 10px;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
             display: none;
         }
+
         .content-card {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 20px;
         }
-        .card-container-card {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1rem;
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
         }
+
         .textarea {
-            flex: 1;
-            margin-right: 1rem;
+            width: 100%;
             padding: 10px;
+            border-radius: 5px;
             border: 1px solid #ccc;
-            border-radius: 4px;
             resize: vertical;
-            background-color: #555;
-            color: #fff;
+            font-size: 16px;
         }
-        .file {
-            flex-shrink: 0;
-            padding: 5px;
-            background-color: #555;
-            color: #fff;
+
+        iframe {
+            width: 100%;
+            height: 200px;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: #007bff;
         }
+
         button {
-            background-color: #333;
+            background-color: #28a745;
             color: #fff;
             border: none;
             padding: 10px 20px;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            margin-top: 10px;
+            transition: background-color 0.3s ease-in-out;
         }
+
         button:hover {
-            background-color: #444;
+            background-color: #218838;
         }
-        .textarea{
-            width: 100%;
+
+        /* Additional Styles */
+        .card-container:hover {
+            background-color: #0056b3;
         }
+
+        .card-container.active .toggle-icon {
+            transform: rotate(45deg);
+        }
+
     </style>
 </head>
+
 <body>
+
     <div class="container">
+        <!-- Navbar -->
+        <nav>
+            <ul class="navbar">
+                <li><a href="Annex_1_Form_Investigator.jsp">Investigators</a></li>
+                <li><a href="Annex_1_Form_proposal.jsp" class="active">Proposal</a></li>
+                <li><a href="Annex_1_Form_workplan.jsp">Work Plan</a></li>
+                <li><a href="Annex_1_Form_Strength.jsp">Strength</a></li>
+                <li><a href="Annex_1_Form_deliverables.jsp">Deliverables</a></li>
+                <li><a href="Annex_1_Form_Budget.jsp">Budget</a></li>
+                <li><a href="Annex_1_Form_uploads.jsp">Uploads</a></li>
+                <li><a href="Annex_1_Form_preview.jsp">Preview</a></li>
+            </ul>
+        </nav>
 
-    <!-- Navbar -->
-<nav>
-    <ul class="navbar">
-        <li><a href="Annex_1_Form_Investigator.jsp" >Investigators</a></li>
-        <li><a href="Annex_1_Form_proposal.jsp" class="active">Proposal</a></li>
-        <li><a href="Annex_1_Form_workplan.jsp">Work Plan</a></li>
-        <li><a href="Annex_1_Form_Strength.jsp">Strength</a></li>
-        <li><a href="Annex_1_Form_deliverables.jsp">Deliverables</a></li>
-        <li><a href="Annex_1_Form_Budget.jsp">Budget</a></li>
-        <li><a href="Annex_1_Form_uploads.jsp">Uploads</a></li>
-        <li><a href="Annex_1_Form_preview.jsp">Preview</a></li>
-    </ul>
-</nav>
+        <!-- Background of Proposal -->
         <form method="POST">
-            <!-- Background of Proposal -->
             <div class="card-container-background">
-            <div class="card-container">
-                <h2>Background</h2>
-                <span class="toggle-icon">+</span>
-            </div>
-            <div class="content">
-                <div class="content-card">
-                    <label for="Background-DescriptionFiled">Description of problem</label>
-                    <div class="card-container-card">
-                        <div class="card-iframe">
-                            <textarea class="textarea" id="Background-DescriptionFiled" rows="10" name="b_description" placeholder="Description of problem"></textarea>
-                            <iframe src="image_upload_file.jsp?ses=3" name="backgroundDescriptionFile" id="Background-Description-file" style="border: 0" width="800" frameborder="0" scrolling="no"></iframe>
-                        </div>
+                <div class="card-container">
+                    <h2>Background</h2>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="content">
+                    <div class="content-card">
+                        <label for="Background-DescriptionFiled">Description of problem</label>
+                        <textarea class="textarea" id="Background-DescriptionFiled" rows="10" name="b_description"
+                            placeholder="Description of problem"></textarea>
+                        <iframe src="image_upload_file.jsp?ses=3" name="backgroundDescriptionFile"
+                            id="Background-Description-file"></iframe>
                     </div>
-                    <label for="Background-DescriptionFiled">Review of problem</label>
-                    <div class="card-container-card">a
-                        <div class="card-iframe">
-                            <textarea class="textarea" id="Background-ReviewFiled" rows="10" name="b_review" placeholder="Description of problem"></textarea>
-                        <iframe src="image_upload_file.jsp?ses=4" name="backgroundReviewFile" id="Background-Review-file" style="border: 0" width="800" frameborder="0" scrolling="no"></iframe>
-                        </div>
+                    <div class="content-card">
+                        <label for="Background-ReviewFiled">Review of problem</label>
+                        <textarea class="textarea" id="Background-ReviewFiled" rows="10" name="b_review"
+                            placeholder="Review of problem"></textarea>
+                        <iframe src="image_upload_file.jsp?ses=4" name="backgroundReviewFile" id="Background-Review-file"></iframe>
                     </div>
-                    
-                     <label for="Background-RationalFiled">Rational for taking up the project</label>
-                        <div class="card-container-card">
-                            <div class="card-iframe">
-                                <textarea class="textarea" id="Background-RationalFiled" rows="10" name="b_Rational" placeholder="Rational for taking up the project"></textarea>
-                            <iframe src="image_upload_file.jsp?ses=5" name="BackgroundRationalFile" id="Background-Rational-file" style="border: 0" width="800" frameborder="0" scrolling="no"></iframe>
-                            </div>
-                        </div>
+                    <div class="content-card">
+                        <label for="Background-RationalFiled">Rationale for taking up the project</label>
+                        <textarea class="textarea" id="Background-RationalFiled" rows="10" name="b_Rational"
+                            placeholder="Rationale for taking up the project"></textarea>
+                        <iframe src="image_upload_file.jsp?ses=5" name="BackgroundRationalFile" id="Background-Rational-file"></iframe>
+                    </div>
                 </div>
             </div>
-            </div>
-            
-<!------------------------------------------ descript of proposal---------------------------------------- -->
-            <div class="card-container-background">
-            <div class="card-container">
-                <h2>Description of Proposal</h2>
-                <span class="toggle-icon">+</span>
-            </div>
-            <div class="content">
-                <div class="content-card">
-                     <label for="Description-ObjectivesFiled">Objectives of the project (3 or 4 bullets)</label>
-                        <div class="card-container-card">
-                            <div class="card-iframe">
-                                <textarea class="textarea" id="Description-ObjectivesFiled" rows="10" name="d_Objectives" placeholder="Objectives of the project (3 or 4 bullets)"></textarea>
-                                <iframe src="image_upload_file.jsp?ses=6" name="DescriptionObjectivesFiled" id="Description-Objectives-file" style="border: 0" width="800" frameborder="0" scrolling="no"></iframe>
-                            </div>
-                        </div>
 
+            <!-- Description of Proposal -->
+            <div class="card-container-background">
+                <div class="card-container">
+                    <h2>Description of Proposal</h2>
+                    <span class="toggle-icon">+</span>
+                </div>
+                <div class="content">
+                    <div class="content-card">
+                        <label for="Description-ObjectivesFiled">Objectives of the project (3 or 4 bullets)</label>
+                        <textarea class="textarea" id="Description-ObjectivesFiled" rows="10" name="d_Objectives"
+                            placeholder="Objectives of the project"></textarea>
+                        <iframe src="image_upload_file.jsp?ses=6" name="DescriptionObjectivesFiled"
+                            id="Description-Objectives-file"></iframe>
+                    </div>
+                    <div class="content-card">
                         <label for="Description-PreliminaryFiled">Preliminary Investigations done (if any)</label>
-                        <div class="card-container-card">
-                            <div class="card-iframe">
-                                <textarea class="textarea" id="Description-PreliminaryFiled" rows="10" name="d_Preliminary" placeholder="Preliminary Investigations done (if any)"></textarea>
-                            <iframe src="image_upload_file.jsp?ses=7" name="DescriptionPreliminaryFile" id="Description-Preliminary-file" style="border: 0" width="800" frameborder="0" scrolling="no"></iframe>
-                            </div>
-                        </div>
-
+                        <textarea class="textarea" id="Description-PreliminaryFiled" rows="10" name="d_Preliminary"
+                            placeholder="Preliminary Investigations done"></textarea>
+                        <iframe src="image_upload_file.jsp?ses=7" name="DescriptionPreliminaryFile"
+                            id="Description-Preliminary-file"></iframe>
+                    </div>
+                    <div class="content-card">
                         <label for="Description-InnovativeFiled">Innovative component of the project</label>
-                        <div class="card-container-card">
-                            <div class="card-iframe">
-                                <textarea class="textarea" id="Description-InnovativeFiled" rows="10" name="d_Innovative" placeholder="Innovative component of the project"></textarea>
-                                <iframe src="image_upload_file.jsp?ses=8" name="DescriptionInnovativeFiled" id="Description-Innovative-file" style="border: 0" width="800" frameborder="0" scrolling="no"></iframe>
-                            </div>
-                        </div>
-                        <label for="Description-MethodologyFiled">Methodology detailing stepwise activities and sub-activities</label>
-                        <div class="card-container-card">
-                            <div class="card-iframe">
-                                <textarea class="textarea" id="Description-MethodologyFiled" rows="10" name="d_Methodology" placeholder="Methodology detailing stepwise activities and sub-activities"></textarea>
-                            <iframe src="image_upload_file.jsp?ses=9" name="DescriptionMethodologyFile" id="Description-Methodology-file" style="border: 0" width="800" frameborder="0" scrolling="no"></iframe>
-                            </div>
-                        </div>
+                        <textarea class="textarea" id="Description-InnovativeFiled" rows="10" name="d_Innovative"
+                            placeholder="Innovative component of the project"></textarea>
+                        <iframe src="image_upload_file.jsp?ses=8" name="DescriptionInnovativeFiled"
+                            id="Description-Innovative-file"></iframe>
+                    </div>
+                    <div class="content-card">
+                        <label for="Description-MethodologyFiled">Methodology detailing stepwise activities and
+                            sub-activities</label>
+                        <textarea class="textarea" id="Description-MethodologyFiled" rows="10" name="d_Methodology"
+                            placeholder="Methodology detailing stepwise activities"></textarea>
+                        <iframe src="image_upload_file.jsp?ses=9" name="DescriptionMethodologyFile"
+                            id="Description-Methodology-file"></iframe>
+                    </div>
                 </div>
             </div>
-            </div>
-            
-            
+
             <button type="submit" name="sub">Submit</button>
         </form>
-           
     </div>
 
     <script>
-        // JavaScript for toggling sections
-        const cards = document.querySelectorAll('.card-container');
-        cards.forEach(card => {
-            card.addEventListener('click', () => {
-                const content = card.nextElementSibling;
-                const icon = card.querySelector('.toggle-icon');
-                if (content.style.display === 'none' || !content.style.display) {
-                    content.style.display = 'block';
-                    icon.textContent = '-';
-                } else {
-                    content.style.display = 'none';
-                    icon.textContent = '+';
-                }
+        // Script to toggle content visibility
+        document.querySelectorAll('.card-container').forEach(card => {
+            card.addEventListener('click', function () {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+                content.style.display = content.style.display === 'block' ? 'none' : 'block';
             });
         });
-
-        <%-- function nextPage(){
-            <%-- response.sendRedirect("") --%>
-              <%
-                
-            %>
-        } --%>
     </script>
-</body>
-</html>
 
+</body>
+
+</html>
 <%@ include file="dbClose.jsp"%>

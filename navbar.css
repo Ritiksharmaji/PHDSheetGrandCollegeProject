@@ -1,28 +1,46 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
-body{
+body {
 	font-family: 'Roboto', sans-serif;
 }
+
 * {
 	margin: 0;
 	padding: 0;
 }
+
 i {
 	margin-right: 10px;
 }
-.contianer-nav-body-resume{
-    height: 100vh;
-    width: 100vw;
-   
+
+.container-full-body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
 }
-/*----------bootstrap-navbar-css------------*/
-.navbar-logo{
+
+.container-nav-body-resume {
+	height: 100vh;
+	width: 80vw; /* Updated width to 80% of viewport width */
+}
+
+.nav-bar-container {
+	border-radius: 2rem;
+	width: 100%; /* Adjust width to 100% */
+	max-width: 1200px; /* Optional: limit the maximum width */
+}
+
+.navbar-logo {
 	padding: 15px;
 	color: #fff;
 }
-.navbar-mainbg{
+
+.navbar-mainbg {
 	background-color: #5161ce;
 	padding: 0px;
+	border-radius: 3rem;
 }
 #navbarSupportedContent{
 	overflow: hidden;

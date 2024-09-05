@@ -2,8 +2,7 @@
 <%-- <%@ include file="Annex_1_Form_Header.jsp" %> --%>
 <%
 
-    String appno = "FG/2024/3";
-    session.setAttribute("appno", appno);
+    String appno = (String) session.getAttribute("appno");
   
     String phase_plan = request.getParameter("phase_plan");
     String mile_stone = request.getParameter("mile_stone");
@@ -80,180 +79,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Collapsible Section</title>
     <style>
-
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        width: 80%;
-    }
-
-    nav {
-        background-color: #fbfcfc;
-        padding: 10px;
-        margin-left: 20%;
-        margin-top: 10%;
-        margin-bottom: 10px;
-    }
-
-    .navbar {
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: space-around;
-    }
-
-    .navbar li {
-        display: inline;
-    }
-
-    .navbar li a {
-        text-decoration: none;
-        color: white;
-        padding: 10px 20px;
-        display: inline-block;
-        background-color: #93989d;
-    }
-
-    .navbar li a.active {
-        background-color: #149f19;
-    }
-
-   
-        /* Styles for the page */
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
+        body {
             font-family: Arial, sans-serif;
-        }
-        .card-container {
-            background-color: #333;
-            color: #fff;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            position: relative;
-        }
-        .card-container h2 {
             margin: 0;
-            font-size: 18px;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
+
+        /* Navbar Styles */
+        nav {
+            background-color: #fbfcfc;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .navbar li {
             display: inline;
         }
-        .toggle-icon {
-            float: right;
-            font-size: 20px;
-            font-weight: bold;
-            line-height: 18px;
+
+        .navbar li a {
+            text-decoration: none;
+            color: white;
+            padding: 10px 20px;
+            display: inline-block;
+            background-color: #93989d;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
+
+        .navbar li a.active,
+        .navbar li a:hover {
+            background-color: #149f19;
+        }
+
+        /* Card Container Styles */
+        .container {
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-container-background {
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .card-container h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+
+        .toggle-icon {
+            font-size: 24px;
+            line-height: 1;
+            transition: transform 0.3s ease-in-out;
+        }
+
         .content {
-            background-color: #444;
-            color: #ddd;
-            padding: 10px;
+            background-color: #f9f9f9;
+            color: #333;
+            padding: 20px;
+            margin-top: 10px;
+            border-radius: 8px;
             display: none;
         }
+
         .content-card {
-            display: flex;
-            flex-direction: column;
+            margin-bottom: 20px;
         }
-        .card-container-card {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 1rem;
+
+        label {
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
         }
+
         .textarea {
-            flex: 1;
-            margin-right: 1rem;
+            width: 100%;
             padding: 10px;
+            border-radius: 5px;
             border: 1px solid #ccc;
-            border-radius: 4px;
             resize: vertical;
-            background-color: #555;
-            color: #fff;
+            font-size: 16px;
         }
-        .file {
-            flex-shrink: 0;
-            padding: 5px;
-            background-color: #555;
-            color: #fff;
+
+        iframe {
+            width: 100%;
+            height: 200px;
             border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
+            margin-top: 10px;
+            border-radius: 5px;
+            background-color: #007bff;
         }
+
         button {
-            background-color: #333;
+            background-color: #28a745;
             color: #fff;
             border: none;
             padding: 10px 20px;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #444;
-        }
-        .textarea{
+            transition: background-color 0.3s ease-in-out;
+            margin-top: 20px;
+            display: block;
             width: 100%;
         }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .card-container:hover {
+            background-color: #0056b3;
+        }
+
+        .card-container.active .toggle-icon {
+            transform: rotate(45deg);
+        }
+
+button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
+    margin-top: 20px;
+    width: 200px; /* Set a fixed width */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
     </style>
 </head>
 <body>
     <div class="container">
 
-    <!-- Navbar -->
-<nav>
-    <ul class="navbar">
-        <li><a href="Annex_1_Form_Investigator.jsp">Investigators</a></li>
-        <li><a href="Annex_1_Form_proposal.jsp">Proposal</a></li>
-        <li><a href="Annex_1_Form_workplan.jsp"  class="active">Work Plan</a></li>
-        <li><a href="Annex_1_Form_Strength.jsp">Strength</a></li>
-        <li><a href="Annex_1_Form_deliverables.jsp">Deliverables</a></li>
-        <li><a href="Annex_1_Form_Budget.jsp">Budget</a></li>
-        <li><a href="Annex_1_Form_uploads.jsp">Uploads</a></li>
-        <li><a href="Annex_1_Form_preview.jsp">Preview</a></li>
-    </ul>
-</nav>
+        <!-- Navbar -->
+        <nav>
+            <ul class="navbar">
+                <li><a href="Annex_1_Form_Investigator.jsp">Investigators</a></li>
+                <li><a href="Annex_1_Form_proposal.jsp">Proposal</a></li>
+                <li><a href="Annex_1_Form_workplan.jsp" class="active">Work Plan</a></li>
+                <li><a href="Annex_1_Form_Strength.jsp">Strength</a></li>
+                <li><a href="Annex_1_Form_deliverables.jsp">Deliverables</a></li>
+                <li><a href="Annex_1_Form_Budget.jsp">Budget</a></li>
+                <li><a href="Annex_1_Form_uploads.jsp">Uploads</a></li>
+                <li><a href="Annex_1_Form_preview.jsp">Preview</a></li>
+            </ul>
+        </nav>
+
         <form method="POST">
-            <!-- Background of Proposal -->
-        <div class="card-container-background">
+            <!-- Work Plan Section -->
             <div class="card-container">
                 <h2>WorkPlan</h2>
                 <span class="toggle-icon">+</span>
             </div>
             <div class="content">
                 <div class="content-card">
+                    <label for="PERT-GANTT-Phase-wiseFiled">Phase-wise plan of action up to post-project activities detailing time schedule</label>
+                    <textarea class="textarea" id="PERT-GANTT-Phase-wiseFiled" rows="10" name="phase_plan" placeholder="Phase-wise plan of action...."></textarea>
 
-                    <label for="PERT-GANTT-Phase-wiseFiled">Phase-wise plan of action upto post project activities detailing time schedule</label>
-                    <div class="card-container-card">
-                        <div class="card-iframe">
-                            <textarea class="textarea" id="PERT-GANTT-Phase-wiseFiled" rows="10" name="phase_plan" placeholder="Phase-wise plan of action...."></textarea>
-                        </div>
-                    </div>
+                    <label for="PERT-GANTT-MilestoneFiled">Milestone may clearly be indicated</label>
+                    <textarea class="textarea" id="PERT-GANTT-MilestoneFiled" rows="10" name="mile_stone" placeholder="Expected Publications / Patents....."></textarea>
 
-                    <label for="PERT-GANTT-MilestoneFiled">Milestone may clearly be indicated </label>
-                    <div class="card-container-card">
-                        <div class="card-iframe">
-                            <textarea class="textarea" id="PERT-GANTT-MilestoneFiled" rows="10" name="mile_stone" placeholder="Expected Publications / Patents....."></textarea>
-        
-                        </div>
-                         <div class="card-iframe">
-                            
-                        <iframe src="image_upload_file.jsp?ses=1" name="PERTGANTTMilestoneFiledFile" id="PERT-GANTT-Milestone-file" style="border: 0" width="800" frameborder="0" scrolling="no"></iframe>
-                        </div>
-                    </div>
-
-
+                    <iframe src="image_upload_file.jsp?ses=1" name="PERTGANTTMilestoneFiledFile" id="PERT-GANTT-Milestone-file" width="800" frameborder="0" scrolling="no"></iframe>
                 </div>
             </div>
-        </div>
             
+            <div class="btn btn-buttton-contianer">
             <button type="submit" name="sub">Submit</button>
+            </div>
         </form>
-           
+
     </div>
 
     <script>
@@ -266,9 +301,11 @@
                 if (content.style.display === 'none' || !content.style.display) {
                     content.style.display = 'block';
                     icon.textContent = '-';
+                    icon.classList.add('active');
                 } else {
                     content.style.display = 'none';
                     icon.textContent = '+';
+                    icon.classList.remove('active');
                 }
             });
         });
